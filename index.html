@@ -1,0 +1,1018 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
+<meta name="theme-color" content="#1D9E75"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<title>RASA 2027</title>
+<link rel="manifest" href="manifest.json"/>
+<style>
+:root{--t:#1D9E75;--td:#085041;--b:#378ADD;--am:#BA7517;--co:#993C1D;--pu:#534AB7;--re:#E24B4A;
+--bg:#080b10;--bg2:#0e1218;--bg3:#141920;--card:#191f2b;--bdr:#1e2636;
+--tx:#eef0f6;--tx2:#8d96b0;--tx3:#3d4560;--r:14px;--rs:9px;}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+html,body{height:100%;background:var(--bg);color:var(--tx);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;overflow:hidden;}
+#app{display:flex;flex-direction:column;height:100vh;height:100dvh;}
+nav{display:flex;background:var(--bg2);border-bottom:1px solid var(--bdr);overflow-x:auto;scrollbar-width:none;flex-shrink:0;}
+nav::-webkit-scrollbar{display:none;}
+.nb{flex:0 0 auto;padding:11px 10px;font-size:11px;font-weight:700;color:var(--tx3);border:none;background:none;cursor:pointer;white-space:nowrap;border-bottom:3px solid transparent;}
+.nb.active{color:var(--t);border-bottom-color:var(--t);}
+#cnt{flex:1;overflow-y:auto;padding:14px;padding-bottom:36px;}
+.sc{display:none;}.sc.active{display:block;}
+.card{background:var(--card);border:1px solid var(--bdr);border-radius:var(--r);padding:14px;margin-bottom:12px;}
+.ct{font-size:10px;font-weight:800;color:var(--tx3);text-transform:uppercase;letter-spacing:.09em;margin-bottom:10px;}
+/* HERO */
+.hero{border-radius:var(--r);padding:18px 16px;margin-bottom:14px;position:relative;overflow:hidden;}
+.hero h1{font-size:21px;font-weight:900;color:#fff;margin-bottom:3px;line-height:1.1;}
+.hero p{font-size:12px;color:rgba(255,255,255,.6);}
+.ghost{position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:72px;font-weight:900;line-height:1;pointer-events:none;opacity:.08;}
+/* MOTIVATION BANNER */
+.motiv{border-radius:var(--r);padding:16px;margin-bottom:12px;border-left:4px solid var(--t);}
+.motiv .mq{font-size:15px;font-weight:700;color:var(--tx);line-height:1.5;margin-bottom:4px;}
+.motiv .ma{font-size:11px;color:var(--tx3);font-weight:600;}
+/* STATS */
+.sg{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:12px;}
+.sg3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:7px;margin-bottom:12px;}
+.stat{background:var(--card);border:1px solid var(--bdr);border-radius:var(--rs);padding:11px;}
+.sl{font-size:10px;color:var(--tx3);margin-bottom:2px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;}
+.sv{font-size:20px;font-weight:900;color:var(--tx);line-height:1;}
+.su{font-size:10px;color:var(--tx3);margin-top:1px;}
+/* COUNTDOWN RING */
+.ring-wrap{display:flex;justify-content:center;align-items:center;padding:10px 0 4px;margin-bottom:12px;}
+.ring-inner{text-align:center;}
+.ring-num{font-size:62px;font-weight:900;color:var(--t);line-height:1;}
+.ring-lbl{font-size:11px;color:var(--tx3);margin-top:2px;}
+.ring-sub{font-size:12px;color:var(--tx2);margin-top:4px;}
+/* STEPS */
+.step{border:1px solid var(--bdr);border-radius:var(--rs);margin-bottom:7px;overflow:hidden;}
+.sh{display:flex;align-items:center;gap:10px;padding:11px 13px;background:var(--bg3);cursor:pointer;user-select:none;}
+.snum{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;flex-shrink:0;}
+.stit{font-size:13px;font-weight:600;color:var(--tx);flex:1;}
+.sdur{font-size:11px;color:var(--tx3);}
+.sb{padding:12px 13px;display:none;border-top:1px solid var(--bdr);}
+.sb.open{display:block;}
+.sdet{font-size:12px;color:var(--tx2);line-height:1.75;}
+.sdet b{color:var(--tx);}
+/* ROWS */
+.row{display:flex;justify-content:space-between;align-items:flex-start;padding:9px 0;border-bottom:1px solid var(--bdr);}
+.row:last-child{border-bottom:none;}
+.rk{color:var(--tx2);font-size:13px;flex:1;line-height:1.4;}
+.rv{color:var(--tx);font-size:13px;font-weight:600;text-align:right;margin-left:10px;flex-shrink:0;}
+/* ALERTS */
+.al{border-radius:var(--rs);padding:10px 12px;font-size:12px;line-height:1.5;margin-bottom:10px;display:flex;gap:8px;}
+.aa{background:#412402;color:#EF9F27;border:1px solid #6B3A02;}
+.at{background:#04342C;color:#5DCAA5;border:1px solid var(--t);}
+.ar{background:#501313;color:#F09595;border:1px solid #7A1F1F;}
+.ab{background:#042C53;color:#85B7EB;border:1px solid #1A4A7A;}
+.ag{background:#173404;color:#97C459;border:1px solid #3D6E10;}
+.apu{background:#26215C;color:#AFA9EC;border:1px solid var(--pu);}
+/* INPUTS */
+input,select,textarea{background:var(--bg3);border:1px solid var(--bdr);border-radius:var(--rs);color:var(--tx);font-size:14px;padding:10px 12px;width:100%;margin-bottom:10px;outline:none;}
+input:focus,select:focus,textarea:focus{border-color:var(--t);}
+textarea{resize:vertical;min-height:60px;}
+label{font-size:12px;color:var(--tx2);font-weight:600;display:block;margin-bottom:4px;margin-top:8px;}
+.btn{display:block;width:100%;padding:14px;border-radius:var(--rs);font-size:14px;font-weight:700;border:none;cursor:pointer;margin-bottom:8px;letter-spacing:.02em;}
+.btn:active{opacity:.75;}
+.bt{background:var(--t);color:#fff;}
+.bo{background:transparent;border:1.5px solid var(--t);color:var(--t);}
+/* PAIN */
+.pr{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:8px;}
+.pb{padding:7px 8px;border-radius:var(--rs);font-size:12px;font-weight:700;border:1.5px solid var(--bdr);background:var(--bg3);color:var(--tx3);cursor:pointer;min-width:36px;text-align:center;}
+.pb.sel{border-color:var(--t);color:var(--t);background:#04342C;}
+/* LOG */
+.le{background:var(--bg3);border-radius:var(--rs);padding:10px;margin-bottom:7px;border:1px solid var(--bdr);}
+.ld{font-size:10px;color:var(--tx3);margin-bottom:3px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;}
+.lm{font-size:13px;color:var(--tx);margin-bottom:4px;}
+.ltg{display:flex;gap:5px;flex-wrap:wrap;}
+.lt{font-size:10px;font-weight:700;padding:2px 7px;border-radius:99px;}
+.lr{background:#04342C;color:#5DCAA5;}
+.lg2{background:#042C53;color:#85B7EB;}
+.lx{background:var(--bg3);color:var(--tx3);border:1px solid var(--bdr);}
+/* BG INPUT */
+.bgi{font-size:52px;font-weight:900;text-align:center;padding:12px;background:transparent;border:none;border-bottom:2px solid var(--t);border-radius:0;color:var(--tx);width:100%;outline:none;margin-bottom:6px;}
+/* WEEK STRIP */
+.ws{display:flex;gap:5px;overflow-x:auto;scrollbar-width:none;margin-bottom:14px;}
+.ws::-webkit-scrollbar{display:none;}
+.wd{flex:0 0 auto;width:46px;border-radius:var(--rs);padding:8px 4px;text-align:center;border:1px solid var(--bdr);background:var(--bg3);}
+.wd.tdy{border-color:var(--t);background:#04342C;}
+.wd.dn{border-color:#639922;background:#173404;}
+.wdn{font-size:9px;font-weight:800;color:var(--tx3);text-transform:uppercase;margin-bottom:3px;}
+.wd.tdy .wdn{color:var(--t);}
+.wd.dn .wdn{color:#97C459;}
+.wdi{font-size:16px;margin-bottom:2px;}
+.wdt{font-size:8px;color:var(--tx3);line-height:1.3;}
+.wd.tdy .wdt{color:#5DCAA5;}
+/* CHECKPOINT */
+.cp{display:flex;gap:12px;align-items:center;padding:10px 0;border-bottom:1px solid var(--bdr);}
+.cp:last-child{border-bottom:none;}
+.cpd{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;flex-shrink:0;}
+.cpn{font-size:13px;font-weight:600;color:var(--tx);}
+.cps{font-size:11px;color:var(--tx3);}
+.pw{background:var(--bg3);border-radius:99px;height:4px;overflow:hidden;margin:4px 0;}
+.pf{height:100%;border-radius:99px;}
+/* PHASE PILLS */
+.pps{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;margin-bottom:12px;}
+.pps::-webkit-scrollbar{display:none;}
+.pp{flex:0 0 auto;padding:6px 13px;border-radius:99px;font-size:12px;font-weight:700;cursor:pointer;border:1.5px solid var(--bdr);background:var(--bg3);color:var(--tx3);}
+/* SUBTABS */
+.stabs{display:flex;gap:5px;overflow-x:auto;scrollbar-width:none;margin-bottom:12px;}
+.stabs::-webkit-scrollbar{display:none;}
+.stb{flex:0 0 auto;padding:6px 11px;border-radius:99px;font-size:12px;font-weight:600;border:1.5px solid var(--bdr);background:transparent;color:var(--tx3);cursor:pointer;}
+.stb.active{background:#04342C;color:#5DCAA5;border-color:var(--t);}
+.stp{display:none;}.stp.active{display:block;}
+/* EXERCISES */
+.ex{padding:9px 0;border-bottom:1px solid var(--bdr);}
+.ex:last-child{border-bottom:none;}
+.en{font-size:13px;font-weight:600;color:var(--tx);margin-bottom:2px;}
+.es{font-size:12px;color:var(--t);font-weight:700;margin-bottom:2px;}
+.ed{font-size:11px;color:var(--tx2);line-height:1.5;}
+.chip{display:inline-block;padding:1px 7px;border-radius:99px;font-size:10px;font-weight:700;margin:1px;}
+.ct2{background:#04342C;color:#5DCAA5;}.ca2{background:#412402;color:#EF9F27;}.cr2{background:#501313;color:#F09595;}
+/* NOTIF */
+.ni{display:flex;justify-content:space-between;align-items:flex-start;padding:11px 0;border-bottom:1px solid var(--bdr);}
+.ni:last-child{border-bottom:none;}
+.nii{flex:1;margin-right:12px;}
+.nin{font-size:13px;font-weight:600;color:var(--tx);margin-bottom:1px;}
+.nit{font-size:11px;color:var(--t);font-weight:700;}
+.nid{font-size:11px;color:var(--tx3);margin-top:1px;}
+.tog{position:relative;width:46px;height:26px;flex-shrink:0;}
+.tog input{opacity:0;width:0;height:0;position:absolute;}
+.tsl{position:absolute;inset:0;background:var(--bg3);border:1px solid var(--bdr);border-radius:13px;cursor:pointer;transition:.2s;}
+.tsl:before{content:'';position:absolute;width:20px;height:20px;border-radius:50%;background:var(--tx3);top:2px;left:2px;transition:.2s;}
+input:checked+.tsl{background:var(--t);border-color:var(--t);}
+input:checked+.tsl:before{transform:translateX(20px);background:#fff;}
+.ns{text-align:center;padding:12px;border-radius:var(--rs);font-size:13px;font-weight:600;margin-bottom:12px;}
+.nok{background:#04342C;color:#5DCAA5;}
+.nno{background:#501313;color:#F09595;}
+.nwt{background:#412402;color:#EF9F27;}
+.tbn{padding:7px 12px;border-radius:99px;font-size:11px;font-weight:700;border:1.5px solid var(--t);background:transparent;color:var(--t);cursor:pointer;margin:3px;}
+.slbl{font-size:11px;font-weight:800;color:var(--tx3);text-transform:uppercase;letter-spacing:.07em;margin:14px 0 7px;}
+/* BODY COMP */
+.bc-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:7px;margin-bottom:10px;}
+.bc-box{background:var(--bg3);border:1px solid var(--bdr);border-radius:var(--rs);padding:10px 8px;text-align:center;}
+.bc-val{font-size:18px;font-weight:900;color:var(--tx);}
+.bc-lbl{font-size:10px;color:var(--tx3);margin-top:2px;}
+/* PROGRESS BAR */
+.pbar-wrap{background:var(--bg3);border-radius:99px;height:7px;overflow:hidden;margin:6px 0 2px;}
+.pbar-fill{height:100%;border-radius:99px;transition:width .4s;}
+.pbar-lbl{display:flex;justify-content:space-between;font-size:10px;color:var(--tx3);margin-top:2px;}
+</style>
+</head>
+<body>
+<div id="app">
+<nav>
+  <button class="nb active" onclick="show('today',this)">🔥 Today</button>
+  <button class="nb" onclick="show('week',this)">📅 Week</button>
+  <button class="nb" onclick="show('body',this)">💪 Body</button>
+  <button class="nb" onclick="show('gym',this)">🏋️ Gym</button>
+  <button class="nb" onclick="show('bg',this)">🩸 BG</button>
+  <button class="nb" onclick="show('log',this)">📓 Log</button>
+  <button class="nb" onclick="show('plan',this)">📋 Plan</button>
+  <button class="nb" onclick="show('race',this)">🏁 Race</button>
+  <button class="nb" onclick="show('alerts',this)">🔔 Alerts</button>
+</nav>
+<div id="cnt">
+
+<!-- TODAY -->
+<div class="sc active" id="sc-today"><div id="tc"></div></div>
+
+<!-- WEEK -->
+<div class="sc" id="sc-week">
+  <div class="hero" style="background:linear-gradient(135deg,#042C53,#0a3a6a);">
+    <h1>📅 This Week</h1>
+    <p id="wkrange"></p>
+    <div class="ghost">W</div>
+  </div>
+  <div class="ws" id="wkstrip"></div>
+  <div id="wkdetail"></div>
+</div>
+
+<!-- BODY COMPOSITION -->
+<div class="sc" id="sc-body">
+  <div class="hero" style="background:linear-gradient(135deg,#26215C,#1a1840);">
+    <h1>💪 Body Goals</h1>
+    <p>57 years · 84kg current · Race-ready target</p>
+    <div class="ghost">84</div>
+  </div>
+  <div class="al apu"><span>🎯</span><span>Top 3 in the 50s age group at RASA 2027. Ripped and race-fit by 5 April 2027. Every session builds toward this.</span></div>
+  <div class="card"><div class="ct">Current vs race-ready targets</div>
+    <div class="row"><div class="rk">Current weight</div><div class="rv">84 kg</div></div>
+    <div class="row"><div class="rk">Race weight target</div><div class="rv" style="color:var(--t)">78–80 kg</div></div>
+    <div class="row"><div class="rk">Weight to lose</div><div class="rv" style="color:var(--am)">4–6 kg (lean)</div></div>
+    <div class="row"><div class="rk">Current fasting BG</div><div class="rv">8.5–9 mmol/L</div></div>
+    <div class="row"><div class="rk">Active BG target</div><div class="rv" style="color:var(--t)">5–6.5 mmol/L</div></div>
+    <div class="row"><div class="rk">Power-to-weight target</div><div class="rv" style="color:var(--t)">Optimise by Phase 3</div></div>
+  </div>
+  <div class="card"><div class="ct">Body recomposition — the RASA approach</div>
+    <div style="font-size:13px;color:var(--tx2);line-height:1.8;">
+      At 57 you are not trying to get light. You are trying to get <b style="color:var(--tx)">lean and strong simultaneously</b>. The creatine protects muscle. The 135–150g protein daily rebuilds it. The Zone 2 volume burns fat without eating muscle. The gym builds the posterior chain.<br><br>
+      Do not diet aggressively. Eat enough to train hard. The weight comes off as a byproduct of volume — exactly what happened naturally from 90–92kg down to 84kg over three years. Trust the process. Let training do the work.
+    </div>
+  </div>
+  <div class="card"><div class="ct">Monthly body check (log here)</div>
+    <label>Date</label><input type="date" id="bcdate"/>
+    <label>Weight (kg)</label><input type="number" id="bcwt" placeholder="84.0" step="0.1"/>
+    <label>Hip pain (0–10)</label>
+    <div class="pr" id="bcpain"></div>
+    <label>How do you feel? (energy, strength)</label>
+    <textarea id="bcnotes" placeholder="Energy good, legs feeling stronger, hip at 1/10..."></textarea>
+    <button class="btn bt" onclick="saveBC()">💾 Save body check</button>
+  </div>
+  <div class="slbl">Body check history</div>
+  <div id="bclist"></div>
+  <div class="card"><div class="ct">What ripped looks like for RASA</div>
+    <div class="row"><div class="rk">Glutes + hamstrings</div><div class="rv">Visible definition by Dec</div></div>
+    <div class="row"><div class="rk">Core</div><div class="rv">Functional strength, not aesthetics</div></div>
+    <div class="row"><div class="rk">Upper body</div><div class="rv">Lean, not bulky — bike position</div></div>
+    <div class="row"><div class="rk">Legs</div><div class="rv">Cyclist's legs — powerful calves, quads</div></div>
+    <div class="row"><div class="rk">Body fat trend</div><div class="rv">Tracking down every month</div></div>
+  </div>
+</div>
+
+<!-- GYM -->
+<div class="sc" id="sc-gym">
+  <div class="stabs">
+    <div class="stb active" onclick="showSt('gym','ga',this)">Session A</div>
+    <div class="stb" onclick="showSt('gym','gb',this)">Session B</div>
+    <div class="stb" onclick="showSt('gym','gp',this)">Progression</div>
+    <div class="stb" onclick="showSt('gym','gm',this)">Daily Mobility</div>
+  </div>
+  <div class="stp active" id="gym-ga">
+    <div class="al ag"><span>💪</span><span>Session A — Tuesday mornings 04:30–05:30 (or 17:30 in winter). Hip stability and posterior chain. 45–55 minutes. Warm-up is mandatory.</span></div>
+    <div class="card"><div class="ct">Warm-up · 8 min</div>
+      <div class="ex"><div class="en">Hip mobility circuit</div><div class="ed">90/90 stretch 60s each → pigeon pose 45s each → hip circles 10 each → donkey kicks 15 each → fire hydrants 15 each. Stop if hip pain above 3/10.</div></div>
+    </div>
+    <div class="card"><div class="ct">Block 1 — Glute stability</div>
+      <div class="ex"><div class="en">Clamshell with band</div><div class="es">3 × 20 each side · Rest 30s</div><div class="ed"><span class="chip ct2">W1–4: light</span><span class="chip ca2">W5–8: medium</span><span class="chip cr2">W9–12: heavy</span><br>Side-lying, rotate top knee open, feet together. No hip roll. Feel in glute med. Most important exercise for right hip.</div></div>
+      <div class="ex"><div class="en">Cable hip abduction</div><div class="es">3 × 15 each side · Rest 30s</div><div class="ed">Cable at ankle. Stand side-on, sweep outward. Slow return. Glute medius — stabilises pelvis every pedal stroke.</div></div>
+      <div class="ex"><div class="en">Single-leg glute bridge</div><div class="es">3 × 15 each leg · Rest 30s · Right first</div><div class="ed"><span class="chip ct2">W1–4: bodyweight</span><span class="chip ca2">W5–8: weight</span><span class="chip cr2">W9–12: elevated</span><br>Drive through heel, squeeze at top.</div></div>
+      <div class="ex"><div class="en">Lateral band walk</div><div class="es">3 × 20 steps each direction</div><div class="ed">Quarter squat. Band above knees. Equal step width. No knee cave.</div></div>
+    </div>
+    <div class="card"><div class="ct">Block 2 — Single-leg strength</div>
+      <div class="ex"><div class="en">Bulgarian split squat</div><div class="es">3 × 10 each leg · Rest 60s · Right first</div><div class="ed"><span class="chip ct2">W1–4: bodyweight</span><span class="chip ca2">W5–8: 5–10kg</span><span class="chip cr2">W9–12: 10–15kg</span><br>Rear foot elevated. Front shin vertical. King of single-leg exercises for cyclists.</div></div>
+      <div class="ex"><div class="en">Single-leg RDL</div><div class="es">3 × 10 each leg · Rest 45s</div><div class="ed"><span class="chip ct2">W1–4: bodyweight</span><span class="chip ca2">W5–12: cable/DB</span><br>Hinge at hip, rear leg floats. Loads hamstring + glute through full range.</div></div>
+    </div>
+    <div class="card"><div class="ct">Cool-down · 5 min</div>
+      <div class="ex"><div class="en">Piriformis + hip flexor stretch</div><div class="ed">Figure-4 60s each → kneeling hip flexor 45s each → supine spinal rotation 30s each. Log hip pain 0–10 after every session.</div></div>
+    </div>
+  </div>
+  <div class="stp" id="gym-gb">
+    <div class="al ab"><span>💪</span><span>Session B — Friday mornings 04:30 (or 17:30 winter). Core and upper body. Keep controlled — long ride on Saturday/Sunday.</span></div>
+    <div class="card"><div class="ct">Block 1 — Core</div>
+      <div class="ex"><div class="en">Dead bug</div><div class="es">3 × 12 each side · Rest 30s</div><div class="ed"><span class="chip ct2">W1–4: arms only</span><span class="chip ca2">W5–12: opp arm+leg</span><br>Back flat. Best core exercise for cyclists.</div></div>
+      <div class="ex"><div class="en">Cable Pallof press</div><div class="es">3 × 12 each side · Rest 30s</div><div class="ed">Press out slowly, hold 2s, return. Anti-rotation core — rough terrain bike control.</div></div>
+      <div class="ex"><div class="en">Forearm plank</div><div class="es">3 sets</div><div class="ed"><span class="chip ct2">W1–4: 40s</span><span class="chip ca2">W5–8: 55s</span><span class="chip cr2">W9–12: 70s</span><br>Neutral spine. Squeeze glutes throughout.</div></div>
+      <div class="ex"><div class="en">Sit-up platform crunches</div><div class="es">3 × 20 · 2s up / 2s down</div><div class="ed">Add twist from week 7. Always after dead bugs.</div></div>
+    </div>
+    <div class="card"><div class="ct">Block 2 — Upper body</div>
+      <div class="ex"><div class="en">Cable seated row</div><div class="es">3 × 12 · Rest 45s · 1s hold</div><div class="ed">Elbows back, neutral grip. Upper back strength for 16-hour riding days.</div></div>
+      <div class="ex"><div class="en">Cable face pull</div><div class="es">3 × 15 · Rest 30s · Light load</div><div class="ed">Pull to forehead, elbows flare high. Rotator cuff health.</div></div>
+      <div class="ex"><div class="en">Dip bar dips</div><div class="es">3 × 8 · Rest 45s</div><div class="ed"><span class="chip ct2">W1–4: partial</span><span class="chip ca2">W5–8: full</span><span class="chip cr2">W9–12: 3s eccentric</span></div></div>
+      <div class="ex"><div class="en">Cable single-arm lat pulldown</div><div class="es">3 × 12 each · Rest 30s</div><div class="ed">Elbow toward hip. Reveals left/right asymmetry.</div></div>
+    </div>
+  </div>
+  <div class="stp" id="gym-gp">
+    <div class="card"><div class="ct">12-week progression</div>
+      <div class="row"><div class="rk" style="color:var(--t);font-weight:700;">W1–3</div><div class="rv" style="color:var(--t)">Learn movements · light</div></div>
+      <div class="row" style="opacity:.5"><div class="rk">W4</div><div class="rv">Deload –30%</div></div>
+      <div class="row"><div class="rk">W5–7</div><div class="rv">Add resistance</div></div>
+      <div class="row" style="opacity:.5"><div class="rk">W8</div><div class="rv">Deload –30%</div></div>
+      <div class="row"><div class="rk">W9–11</div><div class="rv">Heavier · slow tempo</div></div>
+      <div class="row" style="opacity:.5"><div class="rk">W12</div><div class="rv">Deload → Phase 2 (1×/week)</div></div>
+    </div>
+    <div class="card"><div class="ct">Load rules</div>
+      <div class="row"><div class="rk">Add load when</div><div class="rv">3 sets clean × 2 sessions</div></div>
+      <div class="row"><div class="rk">Max increase</div><div class="rv">5–10% at a time</div></div>
+      <div class="row"><div class="rk">Never add if</div><div class="rv">Hip pain above 3/10</div></div>
+    </div>
+    <div class="card"><div class="ct">Gym across phases</div>
+      <div class="row"><div class="rk">Phase 1 (Jul–Sep)</div><div class="rv">2×/week Tue + Fri</div></div>
+      <div class="row"><div class="rk">Phase 2 (Oct–Dec)</div><div class="rv">1×/week Session A</div></div>
+      <div class="row"><div class="rk">Phase 3 (Jan–Mar)</div><div class="rv">1× per fortnight light</div></div>
+      <div class="row"><div class="rk">Taper</div><div class="rv">Stop 3 weeks before race</div></div>
+    </div>
+  </div>
+  <div class="stp" id="gym-gm">
+    <div class="al aa"><span>⚠</span><span>10 minutes EVERY morning — before getting out of bed. This is your single most important daily habit for the right hip niggle.</span></div>
+    <div class="card"><div class="ct">Morning hip routine — daily</div>
+      <div class="ex"><div class="en">1. Knee-to-chest · 60s each side</div><div class="ed">Pull knee to chest then across toward opposite shoulder. Right side first. Targets piriformis directly.</div></div>
+      <div class="ex"><div class="en">2. Figure-4 stretch · 60s each side</div><div class="ed">Right ankle over left knee, push right knee away, pull left thigh toward chest. RIGHT SIDE FIRST. Most targeted piriformis stretch.</div></div>
+      <div class="ex"><div class="en">3. 90/90 hip stretch · 60s each side</div><div class="ed">Both legs at 90° on floor. Sit tall. Towel under hip if needed.</div></div>
+      <div class="ex"><div class="en">4. Kneeling hip flexor · 45s each side</div><div class="ed">Kneeling lunge, rear knee on floor. Shift weight forward. Tuck pelvis under to deepen.</div></div>
+      <div class="ex"><div class="en">5. Cat-cow + thoracic rotation</div><div class="ed">10 cat-cows then one hand behind head, rotate elbow to ceiling × 8 each side.</div></div>
+      <div class="ex"><div class="en">6. Donkey kicks + fire hydrants · 10 each</div><div class="ed">End with glute activation after stretching. Stretch → activate. Every single morning.</div></div>
+    </div>
+    <div class="card"><div class="ct">Hip pain scale</div>
+      <div class="row"><div class="rk" style="color:#97C459">0–2</div><div class="rv">Train normally</div></div>
+      <div class="row"><div class="rk" style="color:#EF9F27">3</div><div class="rv">Train, reduce load. Physio if 3+ days</div></div>
+      <div class="row"><div class="rk" style="color:#F09595">4–5</div><div class="rv">Rest. Mobility only. Book physio</div></div>
+      <div class="row"><div class="rk" style="color:#F09595">6+</div><div class="rv">Stop. Physio within 48 hours</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- BG -->
+<div class="sc" id="sc-bg">
+  <div class="card">
+    <div class="ct">Log blood glucose</div>
+    <input class="bgi" type="number" id="bgv" placeholder="7.4" step="0.1" min="1" max="30" oninput="bgz()"/>
+    <div id="bgzd" style="text-align:center;padding:10px;border-radius:var(--rs);font-size:13px;font-weight:700;margin-bottom:12px;background:var(--bg3);color:var(--tx3);">Enter reading above</div>
+    <label>Context</label>
+    <select id="bgc"><option value="fasting">Fasting — on waking</option><option value="pre">Pre-session</option><option value="bike">On-bike check</option><option value="post">Post-session</option><option value="2hr">2 hours post</option><option value="bed">Before bed</option><option value="random">Random</option></select>
+    <label>Date &amp; time</label><input type="datetime-local" id="bgdt"/>
+    <label>Notes</label><input type="text" id="bgn" placeholder="After morning Wahoo Z2..."/>
+    <button class="btn bt" onclick="saveBG()">💾 Save reading</button>
+  </div>
+  <div class="card"><div class="ct">BG action zones</div>
+    <div class="row"><div class="rk" style="color:#F09595">Below 4.0</div><div class="rv">⛔ STOP — 15g fast carbs now</div></div>
+    <div class="row"><div class="rk" style="color:#EF9F27">4.0–5.5</div><div class="rv">Eat 20–30g carbs · recheck</div></div>
+    <div class="row"><div class="rk" style="color:#97C459">5.5–8.0</div><div class="rv">✓ Green light · train</div></div>
+    <div class="row"><div class="rk" style="color:#5DCAA5">8.0–10.0</div><div class="rv">Ideal pre-long-ride buffer</div></div>
+    <div class="row"><div class="rk" style="color:#EF9F27">10.0–13.0</div><div class="rv">Monitor · Z2 lowers it</div></div>
+    <div class="row"><div class="rk" style="color:#F0997B">Above 13.0</div><div class="rv">Rest day · skip session</div></div>
+  </div>
+  <div class="slbl">Recent readings</div>
+  <div id="bgl"></div>
+</div>
+
+<!-- LOG -->
+<div class="sc" id="sc-log">
+  <div class="card">
+    <div class="ct">Log a session</div>
+    <label>Date</label><input type="date" id="ldate"/>
+    <label>Session type</label>
+    <select id="ltype">
+      <option value="wahoo">Wahoo Z2 — Indoor</option>
+      <option value="z2">Zone 2 Ride — Outdoor</option>
+      <option value="long">Long Ride</option>
+      <option value="gym-a">Gym Session A (Hip)</option>
+      <option value="gym-b">Gym Session B (Core)</option>
+      <option value="tread">Treadmill incline</option>
+      <option value="mob">Mobility only</option>
+      <option value="rest">Rest / Recovery</option>
+    </select>
+    <label>Duration (minutes)</label><input type="number" id="ldur" placeholder="60"/>
+    <label>Average HR (bpm)</label><input type="number" id="lhr" placeholder="122"/>
+    <label>Distance (km — rides only)</label><input type="number" id="ldist" placeholder="0"/>
+    <label>Hip pain before (0–10)</label>
+    <div class="pr" id="lpb"></div>
+    <label>Notes</label>
+    <textarea id="lnotes" placeholder="Morning Wahoo 60 min Z2, HR 118, hip 1/10, strong session..."></textarea>
+    <button class="btn bt" onclick="saveLog()">💾 Save session</button>
+  </div>
+  <div class="slbl">Recent sessions</div>
+  <div id="ll"></div>
+</div>
+
+<!-- PLAN -->
+<div class="sc" id="sc-plan">
+  <div class="pps">
+    <div class="pp" style="background:#04342C;color:#5DCAA5;border-color:var(--t);" onclick="showPh('p1',this)">Phase 1 · Base</div>
+    <div class="pp" onclick="showPh('p2',this)">Phase 2 · Build</div>
+    <div class="pp" onclick="showPh('p3',this)">Phase 3 · Peak</div>
+    <div class="pp" onclick="showPh('p4',this)">Phase 4 · Taper</div>
+  </div>
+  <div id="p1">
+    <div class="card" style="border-left:3px solid var(--t);">
+      <div style="font-size:15px;font-weight:800;margin-bottom:2px;">Phase 1 — Base & Rebuild</div>
+      <div style="font-size:12px;color:var(--t);font-weight:600;">8 July → 30 Sep 2026 · 12 weeks</div>
+    </div>
+    <div class="al aa"><span>⚠</span><span>Winter training: mornings from 04:30 when that switches back. Currently 17:30 sessions. Every session starts with hip mobilisation.</span></div>
+    <div class="card"><div class="ct">Weekly structure — winter (current)</div>
+      <div class="row"><div class="rk" style="color:var(--tx3)">Monday</div><div class="rv" style="color:var(--tx3)">Full rest · mobility only</div></div>
+      <div class="row"><div class="rk">Tuesday</div><div class="rv" style="color:#85B7EB">Gym A · 17:30</div></div>
+      <div class="row"><div class="rk">Wednesday</div><div class="rv" style="color:var(--t)">Wahoo Z2 · 60–75 min · 17:30</div></div>
+      <div class="row"><div class="rk">Thursday</div><div class="rv" style="color:#EF9F27">Treadmill incline · 30–40 min · 17:30</div></div>
+      <div class="row"><div class="rk">Friday</div><div class="rv" style="color:#AFA9EC">Gym B · 17:30</div></div>
+      <div class="row"><div class="rk">Saturday</div><div class="rv" style="color:#F0997B">Long ride · outdoor or Wahoo · 3–4 hrs · early</div></div>
+      <div class="row"><div class="rk">Sunday</div><div class="rv" style="color:var(--t)">Wahoo recovery · 60–90 min</div></div>
+    </div>
+    <div class="card"><div class="ct">Weekly structure — post-winter (from Sep)</div>
+      <div class="row"><div class="rk">04:30–05:30</div><div class="rv">Wahoo Z2 or gym (Tue/Thu/Fri)</div></div>
+      <div class="row"><div class="rk">Saturday</div><div class="rv">Long ride · early morning start</div></div>
+      <div class="row"><div class="rk">Sunday</div><div class="rv">Recovery ride or rest</div></div>
+      <div class="row"><div class="rk">Note</div><div class="rv">Morning training = fasted check BG first</div></div>
+    </div>
+    <div class="card"><div class="ct">Phase 1 goals</div>
+      <div class="row"><div class="rk">Zone 2 HR target</div><div class="rv">115–130 bpm</div></div>
+      <div class="row"><div class="rk">Active BG target</div><div class="rv">5.5–7.5 mmol/L</div></div>
+      <div class="row"><div class="rk">Creatine daily</div><div class="rv">5g with breakfast</div></div>
+      <div class="row"><div class="rk">Daily protein</div><div class="rv">135–150g</div></div>
+      <div class="row"><div class="rk">Weekly hours (end)</div><div class="rv">8–9 hrs</div></div>
+      <div class="row"><div class="rk">Weight trend</div><div class="rv">Gradual drop from 84kg</div></div>
+    </div>
+    <div class="card"><div class="ct">Wahoo Z2 guide</div>
+      <div class="row"><div class="rk">ERG mode</div><div class="rv">OFF — use HR not watts</div></div>
+      <div class="row"><div class="rk">HR target</div><div class="rv">115–130 bpm</div></div>
+      <div class="row"><div class="rk">Cadence</div><div class="rv">88–95 rpm</div></div>
+      <div class="row"><div class="rk">Fan</div><div class="rv">Powerful — on face always</div></div>
+      <div class="row"><div class="rk">Off bike every</div><div class="rv">60 min for 2–3 min</div></div>
+      <div class="row"><div class="rk">Drink every</div><div class="rv">15–20 min</div></div>
+    </div>
+    <div class="card"><div class="ct">12-week volume progression</div><div id="p1v"></div></div>
+  </div>
+  <div id="p2" style="display:none">
+    <div class="card" style="border-left:3px solid var(--b);">
+      <div style="font-size:15px;font-weight:800;margin-bottom:2px;">Phase 2 — Build & Load</div>
+      <div style="font-size:12px;color:var(--b)">1 Oct → 31 Dec 2026 · 13 weeks</div>
+    </div>
+    <div class="card"><div class="ct">Key changes</div>
+      <div class="row"><div class="rk">Weekly volume</div><div class="rv">10–15 hrs/week</div></div>
+      <div class="row"><div class="rk">Gym</div><div class="rv">1×/week Session A only</div></div>
+      <div class="row"><div class="rk">Saturday ride</div><div class="rv">6–7 hours</div></div>
+      <div class="row"><div class="rk">Threshold intervals</div><div class="rv">1×/week on Wahoo</div></div>
+      <div class="row"><div class="rk">Back-to-back</div><div class="rv">Sat + Sun riding</div></div>
+      <div class="row"><div class="rk">Morning training</div><div class="rv">04:30 starts fully active</div></div>
+    </div>
+    <div class="card"><div class="ct">Milestones</div>
+      <div class="row"><div class="rk">End October</div><div class="rv">100km controlled</div></div>
+      <div class="row"><div class="rk">End November</div><div class="rv">First 150km ride</div></div>
+      <div class="row"><div class="rk">End December</div><div class="rv">120km + 80km back-to-back</div></div>
+      <div class="row"><div class="rk">Weight target</div><div class="rv">80–82kg by Dec</div></div>
+    </div>
+  </div>
+  <div id="p3" style="display:none">
+    <div class="card" style="border-left:3px solid var(--am);">
+      <div style="font-size:15px;font-weight:800;margin-bottom:2px;">Phase 3 — Race Specific</div>
+      <div style="font-size:12px;color:var(--am)">1 Jan → 15 Mar 2027 · 10 weeks</div>
+    </div>
+    <div class="al ar"><span>⚠</span><span>Check BG every 2–3 hrs on bike. Brief doctor before this phase. Multi-day blocks begin.</span></div>
+    <div class="card"><div class="ct">Signature training blocks</div>
+      <div class="row"><div class="rk">January</div><div class="rv">300km self-supported weekend</div></div>
+      <div class="row"><div class="rk">February</div><div class="rv">400km CP simulation</div></div>
+      <div class="row"><div class="rk">March</div><div class="rv">3 days × 180km then taper</div></div>
+    </div>
+    <div class="card"><div class="ct">Numbers to hit before taper</div>
+      <div class="row"><div class="rk">Single day max</div><div class="rv">220–250km</div></div>
+      <div class="row"><div class="rk">Back-to-back</div><div class="rv">3 consecutive days</div></div>
+      <div class="row"><div class="rk">Weekly peak</div><div class="rv">700–800km</div></div>
+      <div class="row"><div class="rk">Race weight</div><div class="rv">78–80kg</div></div>
+    </div>
+  </div>
+  <div id="p4" style="display:none">
+    <div class="card" style="border-left:3px solid var(--co);">
+      <div style="font-size:15px;font-weight:800;margin-bottom:2px;">Phase 4 — Taper</div>
+      <div style="font-size:12px;color:var(--co)">16 Mar → 5 Apr 2027 · 3 weeks</div>
+    </div>
+    <div class="card"><div class="ct">Taper protocol</div>
+      <div class="row"><div class="rk">Week 1 (16–22 Mar)</div><div class="rv">–40% volume, keep intensity</div></div>
+      <div class="row"><div class="rk">Week 2 (23–29 Mar)</div><div class="rv">–60% volume, 2–3 short rides</div></div>
+      <div class="row"><div class="rk">Week 3 (30 Mar–4 Apr)</div><div class="rv">45 min spin/day only</div></div>
+    </div>
+    <div class="card"><div class="ct">Race week checklist</div>
+      <div class="row"><div class="rk">Bike full service</div><div class="rv">Before Week 3</div></div>
+      <div class="row"><div class="rk">Tubeless sealant</div><div class="rv">Day before start</div></div>
+      <div class="row"><div class="rk">Sleep schedule</div><div class="rv">21:00–04:30 from 2 weeks out</div></div>
+      <div class="row"><div class="rk">Medical card</div><div class="rv">English + Afrikaans on bike</div></div>
+      <div class="row"><div class="rk">Route on GPS</div><div class="rv">All CP locations downloaded</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- RACE -->
+<div class="sc" id="sc-race">
+  <div class="hero" style="background:linear-gradient(135deg,#26215C,#1a1840);">
+    <h1>🏁 Race Strategy</h1>
+    <p>RASA · 5 April 2027 · 1950km · Top 3 age group 50s</p>
+    <div class="ghost" id="rcd" style="opacity:.12;font-size:60px;right:10px;color:#AFA9EC;"></div>
+  </div>
+  <div class="al apu"><span>🎯</span><span>Top 3 in the 50s age group. Not a dream. A plan. You have 9 months of structured training, a Scott Spark advantage, and the mental composure to pace it right.</span></div>
+  <div class="card"><div class="ct">Checkpoint pacing plan</div>
+    <div class="cp"><div class="cpd" style="background:#04342C;color:#5DCAA5;">CP1</div><div style="flex:1"><div class="cpn">300km — Day 3 cutoff</div><div class="cps">Target Day 2 by 18:00 · ~18hr buffer</div><div class="pw"><div class="pf" style="width:15%;background:var(--t)"></div></div></div></div>
+    <div class="cp"><div class="cpd" style="background:#042C53;color:#85B7EB;">CP2</div><div style="flex:1"><div class="cpn">630km — Day 7 cutoff</div><div class="cps">Target Day 5 by 20:00 · ~30hr buffer</div><div class="pw"><div class="pf" style="width:32%;background:var(--b)"></div></div></div></div>
+    <div class="cp"><div class="cpd" style="background:#412402;color:#EF9F27;">CP3</div><div style="flex:1"><div class="cpn">1080km — Day 10 cutoff</div><div class="cps">Target Day 8 by 20:00 · ~28hr buffer</div><div class="pw"><div class="pf" style="width:55%;background:var(--am)"></div></div></div></div>
+    <div class="cp"><div class="cpd" style="background:#26215C;color:#AFA9EC;">FIN</div><div style="flex:1"><div class="cpn">1950km — Day 15 cutoff</div><div class="cps">Target Day 12–13 · podium finish</div><div class="pw"><div class="pf" style="width:100%;background:var(--pu)"></div></div></div></div>
+  </div>
+  <div class="card"><div class="ct">Daily race rhythm</div>
+    <div class="row"><div class="rk">Riding hours/day</div><div class="rv">14–16 hrs</div></div>
+    <div class="row"><div class="rk">Sleep target</div><div class="rv">3–5 hrs micro-sleep</div></div>
+    <div class="row"><div class="rk">Calories/day</div><div class="rv">6,000–8,000 kcal</div></div>
+    <div class="row"><div class="rk">Water/day</div><div class="rv">7–10L (SA heat)</div></div>
+    <div class="row"><div class="rk">Moving speed target</div><div class="rv">16–18 km/h mixed terrain</div></div>
+    <div class="row"><div class="rk">On-bike carbs</div><div class="rv">60–80g/hr on a timer</div></div>
+  </div>
+  <div class="card"><div class="ct">Your advantages in the 50s age group</div>
+    <div class="row"><div class="rk">Scott Spark full suspension</div><div class="rv">Faster on 25% rough sections</div></div>
+    <div class="row"><div class="rk">9 months structured training</div><div class="rv">Most age-groupers underprepare</div></div>
+    <div class="row"><div class="rk">Mental composure</div><div class="rv">Calm pacing wins ultra events</div></div>
+    <div class="row"><div class="rk">T2D discipline</div><div class="rv">Body monitoring = race awareness</div></div>
+    <div class="row"><div class="rk">Post-surgery resilience</div><div class="rv">Pain tolerance asset at hour 12</div></div>
+    <div class="row"><div class="rk">30 years cycling base</div><div class="rv">Motor patterns never fully fade</div></div>
+  </div>
+  <div class="card"><div class="ct">Scott Spark RC 2019</div>
+    <div class="row"><div class="rk">70% district/gravel</div><div class="rv">Roll fast at Z2</div></div>
+    <div class="row"><div class="rk">20% rough gravel</div><div class="rv">Full susp. wins here</div></div>
+    <div class="row"><div class="rk">5% jeep/singletrack</div><div class="rv">MTB = major advantage</div></div>
+    <div class="row"><div class="rk">Total vertical</div><div class="rv">23,000–32,000m</div></div>
+    <div class="row"><div class="rk">Gearing 32T oval × 52T</div><div class="rv">Discuss max cassette with mechanic</div></div>
+  </div>
+</div>
+
+<!-- ALERTS -->
+<div class="sc" id="sc-alerts">
+  <div id="nst" class="ns nwt">Tap below to enable notifications</div>
+  <button class="btn bt" id="nBtn" onclick="reqN()">🔔 Enable Notifications</button>
+  <div class="al ab"><span>ℹ</span><span>Toggle each reminder on/off. Test buttons fire real notifications within 2 seconds to confirm working.</span></div>
+  <div class="slbl">🌅 Morning</div><div class="card" id="grp-morning"></div>
+  <div class="slbl">🚴 Training</div><div class="card" id="grp-training"></div>
+  <div class="slbl">🩸 Blood glucose</div><div class="card" id="grp-bg"></div>
+  <div class="slbl">🌙 Evening</div><div class="card" id="grp-evening"></div>
+  <div class="slbl">🚨 Safety</div><div class="card" id="grp-safety"></div>
+  <div class="slbl">Test notifications</div>
+  <div class="card">
+    <div style="font-size:12px;color:var(--tx2);margin-bottom:10px;">Fires on your phone within 2 seconds.</div>
+    <button class="tbn" onclick="testN('morning')">🌅 Wake</button>
+    <button class="tbn" onclick="testN('bg')">🩸 BG</button>
+    <button class="tbn" onclick="testN('session')">🔥 Session</button>
+    <button class="tbn" onclick="testN('gym')">💪 Gym</button>
+    <button class="tbn" onclick="testN('protein')">🥛 Protein</button>
+    <button class="tbn" onclick="testN('hip')">🦵 Hip</button>
+    <button class="tbn" onclick="testN('water')">💧 Water</button>
+    <button class="tbn" onclick="testN('sleep')">😴 Sleep</button>
+    <button class="tbn" onclick="testN('motiv')">🔥 Motivation</button>
+  </div>
+  <div class="slbl">Daily schedule</div>
+  <div class="card" style="font-size:12px;color:var(--tx2);line-height:2.1;">
+    <b style="color:var(--t)">04:30</b> Wake (post-winter) · hip mobility · fasting BG<br>
+    <b style="color:var(--t)">05:00</b> Morning session — Wahoo / gym / ride<br>
+    <b style="color:var(--t)">06:15</b> Post-session protein shake + BG check<br>
+    <b style="color:var(--t)">07:00</b> Creatine 5g + Saxagliptin 10mg with breakfast<br>
+    <b style="color:var(--t)">09:00</b> Water check<br>
+    <b style="color:var(--t)">12:00</b> Midday protein + water<br>
+    <b style="color:var(--t)">17:00</b> Pre-session BG (winter evening sessions)<br>
+    <b style="color:var(--t)">17:30</b> 🔥 Winter session time<br>
+    <b style="color:var(--t)">18:45</b> Log session + protein shake<br>
+    <b style="color:var(--t)">19:00</b> Post-session BG<br>
+    <b style="color:var(--t)">20:30</b> Hip pain log<br>
+    <b style="color:var(--t)">21:00</b> Pre-bed BG<br>
+    <b style="color:var(--t)">21:15</b> Lights out
+  </div>
+</div>
+
+</div>
+</div>
+
+<script>
+const S={get:k=>{try{return JSON.parse(localStorage.getItem(k));}catch(e){return null;}},set:(k,v)=>localStorage.setItem(k,JSON.stringify(v))};
+const TRAIN_START=new Date('2026-07-08');
+const RACE_DATE=new Date('2027-04-05');
+
+// Motivational quotes pool
+const QUOTES=[
+  {q:"The calmer you are, the faster you ride.",a:"RASA 2027 Coach"},
+  {q:"At 57 you're not slower. You're smarter. Use it.",a:"RASA 2027 Coach"},
+  {q:"Every Zone 2 hour is a brick in the podium you're building.",a:"RASA 2027 Coach"},
+  {q:"The life changes that calmed you are the same ones that will carry you to the finish.",a:"RASA 2027 Coach"},
+  {q:"2000km. 15 days. Top 3. The plan is simple. The execution is daily.",a:"RASA 2027 Coach"},
+  {q:"You've been on a bike since 1990. That base never fully fades.",a:"RASA 2027 Coach"},
+  {q:"Your son got married. Your race begins. New chapter, same fire.",a:"RASA 2027 Coach"},
+  {q:"The podium at RASA isn't won on race day. It's won in sessions like today.",a:"RASA 2027 Coach"},
+  {q:"Radical prostatectomy Jan 2025. RASA podium April 2027. That's a comeback story.",a:"RASA 2027 Coach"},
+  {q:"Top 3 in the 50s at RASA. It's not a dream. It's a plan with legs.",a:"RASA 2027 Coach"},
+  {q:"Calm mind. Strong legs. Full heart. That's all RASA asks of you.",a:"RASA 2027 Coach"},
+  {q:"The Eastern Cape roads that raised you will carry you across South Africa.",a:"RASA 2027 Coach"},
+  {q:"84kg today. 78kg on the start line. Every session is a gram in the right direction.",a:"RASA 2027 Coach"},
+  {q:"You don't need to be motivated every day. You just need to show up every day.",a:"RASA 2027 Coach"},
+  {q:"Hip mobility this morning. Zone 2 this evening. Repeat 270 times. Win.",a:"RASA 2027 Coach"},
+];
+
+// Week plan — keyed by JS day (0=Sun,1=Mon,2=Tue,3=Wed,4=Thu,5=Fri,6=Sat)
+const WP={
+  0:{n:'Wahoo Recovery',icon:'🚴',type:'wahoo',col:'#1D9E75',am:'Recovery ride — legs flush from Saturday',steps:[
+    {t:'Pre-session BG',d:'Before riding',det:'Target 5.5–10. Recovery session — shorter, lower HR. Log in 🩸 tab.'},
+    {t:'Wahoo recovery',d:'60–90 min',det:'<b>HR 110–125 bpm</b> — lower than normal Zone 2. Cadence 85–90 rpm. Flushes legs from Saturday\'s long ride. Genuinely tired? Reduce to 45 min. Recovery IS training.'},
+    {t:'Stretch + mobility',d:'15 min after',det:'Full hip routine. Extra time on figure-4 after long ride day. Log session. Check BG.'},
+  ]},
+  1:{n:'Full Rest',icon:'🧘',type:'rest',col:'#5a6280',am:'Rest day — mobility only',steps:[
+    {t:'Morning hip mobility',d:'10 min · before getting up',det:'All 6 exercises before getting out of bed. Right side first on figure-4. Log hip pain after.'},
+    {t:'Active recovery only',d:'No training',det:'Light walking only. Let the body adapt from last week\'s load. This rest is not lost time — adaptation happens during recovery.'},
+    {t:'Prepare for tomorrow',d:'Evening',det:'Gym kit ready for Session A. Glucose tabs stocked. Set 04:30 alarm (or 17:30 winter session reminder). Read Gym Session A if needed.'},
+  ]},
+  2:{n:'Gym Session A',icon:'💪',type:'gym',col:'#378ADD',am:'Gym A — hip & glute priority',steps:[
+    {t:'BG check first',d:'Before session',det:'Morning: check fasting BG before training. Target 5.5–10. If below 5.5 eat banana + 4 dates, recheck. Log it. Glucose tabs on you.\nEvening (winter): check at 17:00. Same targets.'},
+    {t:'Hip mobility warm-up',d:'8 min',det:'<b>Mandatory before any weight.</b> 90/90 60s each → pigeon 45s each → hip circles 10 each → donkey kicks 15 each → fire hydrants 15 each.'},
+    {t:'Block 1 — Glute stability',d:'15 min',det:'Clamshells 3×20 each (light band) → Cable hip abduction 3×15 each → Single-leg glute bridge 3×15 each (right first) → Lateral band walk 3×20 steps each direction. Rest 30s between sets.'},
+    {t:'Block 2 — Single-leg strength',d:'15 min',det:'Bulgarian split squat 3×10 each (bodyweight, right first) → Single-leg RDL 3×10 each (bodyweight). Rest 45–60s. See 🏋️ Gym tab for full cues.'},
+    {t:'Cool-down',d:'5 min',det:'Figure-4 60s each → kneeling hip flexor 45s each → supine spinal rotation 30s each. Log hip pain 0–10 in 📓 Log tab.'},
+    {t:'Post-session',d:'Within 30 min',det:'25–30g NPL protein shake. If BG below 6 add banana or oats. Log session in 📓 tab. BG check 2 hrs later.'},
+  ]},
+  3:{n:'Wahoo Zone 2',icon:'🚴',type:'wahoo',col:'#1D9E75',am:'Wahoo Z2 — aerobic base building',steps:[
+    {t:'BG check',d:'Before session',det:'Morning (post-winter): fasting BG check immediately on waking — check before even eating. If 5.5–10, train. If 4–5.5, eat banana + 4 dates, wait 15 min, recheck.\nEvening (winter): check at 17:00. Same zones.'},
+    {t:'Wahoo setup',d:'Before starting',det:'ERG mode <b>OFF</b>. Set Zwift route for distraction — ignore watt targets. Powerful fan directly on face — trainer sweat is much higher than outdoors. Bidons filled.'},
+    {t:'Zone 2 session',d:'60–75 min',det:'Warm up 10 min easy (HR below 110). Main set: <b>HR 115–130 bpm</b>, cadence 88–95 rpm. If HR drifts above 130 reduce resistance. Get off the bike every 60 minutes for 2–3 min — walk around, come back. Drink every 15–20 min.'},
+    {t:'On-bike nutrition',d:'From 45-min mark',det:'Under 75 min + BG above 6.5 → water only fine.\nOver 75 min → eat at 45-min mark regardless of hunger. 2–3 dates or half banana.\n<b>Eat on a TIMER not on symptoms.</b> By the time you feel low, BG has been dropping 20–30 min.'},
+    {t:'Cool-down + log',d:'After',det:'5 min easy spin. Protein shake within 30 min. BG check 2 hrs later. Log: duration, avg HR, how you felt.'},
+  ]},
+  4:{n:'Treadmill Incline',icon:'🏃',type:'tread',col:'#BA7517',am:'Treadmill — cardio without hip impact',steps:[
+    {t:'BG check',d:'Before session',det:'Target 5.5–10 mmol/L. Log it. Glucose tabs accessible.'},
+    {t:'Treadmill session',d:'30–40 min',det:'Incline: <b>8%</b> (W1–4) → <b>10%</b> (W5–8) → <b>12%</b> (W9–12). Walk at pace keeping HR at 115–125 bpm. Do NOT run — incline walking gives full cardiovascular stimulus without hip impact. If 8% feels too easy by week 4, raise incline before speed.'},
+    {t:'Hip mobility after',d:'10 min',det:'Full morning hip routine again. Piriformis and hip flexors tighten on incline — this keeps the right hip loose.'},
+    {t:'Post-session',d:'After',det:'Protein shake within 30 min. Log session. BG check 2 hrs later.'},
+  ]},
+  5:{n:'Gym Session B',icon:'💪',type:'gym',col:'#534AB7',am:'Gym B — core & upper body',steps:[
+    {t:'BG check',d:'Before session',det:'Target 5.5–10 mmol/L. Log it. Glucose tabs in pocket.'},
+    {t:'Hip mobility warm-up',d:'5 min',det:'Same circuit every time. Hip circles → donkey kicks → fire hydrants. Wakes posterior chain before core work.'},
+    {t:'Block 1 — Core',d:'15 min',det:'Dead bug 3×12 each (arms only W1–4, opp arm+leg W5–12) → Cable Pallof press 3×12 each → Forearm plank 3 sets (40s/55s/70s) → Sit-up crunches 3×20 (add twist W7+).'},
+    {t:'Block 2 — Upper body',d:'15 min',det:'Cable seated row 3×12 (1s hold) → Cable face pull 3×15 (light) → Dip bar dips 3×8 (partial/full/3s eccentric) → Cable single-arm lat pulldown 3×12 each.'},
+    {t:'Cool-down',d:'5 min',det:'Chest stretch → thoracic rotation → hip flexor stretch. Tomorrow is long ride day — early night tonight.'},
+    {t:'Post-session',d:'Within 30 min',det:'Protein shake. Log session. BG check 2 hrs later. Early night — big day tomorrow.'},
+  ]},
+  6:{n:'Long Ride',icon:'🏔',type:'ride',col:'#993C1D',am:'Long ride — the most important session of the week',steps:[
+    {t:'Pre-ride breakfast',d:'Early morning',det:'Check BG on waking. Eat proper breakfast — oats + banana + toast + peanut butter (<b>60–80g carbs</b>). Target BG <b>7.5–9.0 mmol/L</b> before rolling. Creatine 5g + Saxagliptin 10mg with breakfast.'},
+    {t:'Kit and safety check',d:'Before rolling',det:'Bidons filled. Glucose tabs in jersey pocket. Real food loaded — dates, banana, rice cakes. Check weather — Eastern Cape winter mornings are cold. If too cold or unsafe → Wahoo for same duration. Safety wins.'},
+    {t:'The ride',d:'3–4 hrs',det:'Start <b>10 bpm below Z2 ceiling</b> — feels almost too easy. Correct. Eat at 45-min mark then every 45–60 min. Check BG at 90 min. If below 6.0 add 20g carbs. Finish feeling like you could do another hour.'},
+    {t:'Post-ride recovery',d:'After',det:'Protein shake + carbs within 30 min. Elevate legs 15 min. Check BG. Hip mobility before showering. Log — distance, avg HR, how you felt at hr 2 vs hr 3.'},
+  ]},
+};
+
+const REMINDERS=[
+  {id:'rw',grp:'morning',icon:'🌅',n:'Wake-up + hip mobility',time:'04:30',desc:'10 min before getting up (post-winter) · 06:00 in winter',t:'🌅 Rise and train, coach!',b:'Hip mobility first — 10 min. Right side first on figure-4. Day '+dn()+'. Build that podium.',on:true},
+  {id:'rfb',grp:'morning',icon:'🩸',n:'Fasting BG reading',time:'04:35',desc:'First reading before eating or training',t:'🩸 Fasting BG — log it now',b:'Check BG before anything else. BG tab → log it. Know your number before the session.',on:true},
+  {id:'rm',grp:'morning',icon:'💊',n:'Creatine + Saxagliptin',time:'07:00',desc:'5g creatine + 10mg Saxagliptin with breakfast',t:'💊 Meds + creatine',b:'Saxagliptin 10mg + 5g creatine with breakfast. Every single day.',on:true},
+  {id:'rpa',grp:'morning',icon:'🥛',n:'Protein target reminder',time:'07:15',desc:'Plan your 135–150g protein for today',t:'🥛 Protein: 135–150g today',b:'Plan protein now — easier than scrambling at night.',on:true},
+  {id:'rwa',grp:'bg',icon:'💧',n:'Water check',time:'09:00',desc:'3–4L needed today',t:'💧 Water check',b:'500ml minimum? 3–4L needed. Dehydration kills recovery and BG management.',on:true},
+  {id:'rmd',grp:'bg',icon:'🥗',n:'Midday check-in',time:'12:00',desc:'Protein + water mid-day',t:'🥗 Midday check-in',b:'Halfway through protein target? Drink 500ml now.',on:true},
+  {id:'rpb',grp:'training',icon:'🩸',n:'Pre-session BG (evening)',time:'17:00',desc:'For winter evening sessions',t:'🩸 Pre-session BG — 15 min',b:'Check BG now. Target 5.5–10 mmol/L. Log it. Glucose tabs in pocket.',on:true},
+  {id:'rgt',grp:'safety',icon:'🚨',n:'Glucose tabs check',time:'17:05',desc:'Confirm tabs before every session',t:'🚨 Glucose tabs on you?',b:'Jersey pocket. Right now. Non-negotiable every session.',on:true},
+  {id:'rs',grp:'training',icon:'🔥',n:'Session time — 17:30',time:'17:30',desc:'Winter evening session start',t:'🔥 SESSION TIME!',b:'Day '+dn()+' — changed and ready? RASA podium built one session at a time. GO.',on:true},
+  {id:'rl',grp:'training',icon:'📓',n:'Log session + protein',time:'18:45',desc:'Log + shake within 30 min',t:'📓 Log it + shake',b:'Session done? Log it now. Protein shake — 30-min window is critical at 57.',on:true},
+  {id:'rpg',grp:'bg',icon:'🩸',n:'Post-session BG',time:'19:00',desc:'BG drops 12–24hrs after exercise',t:'🩸 Post-session BG',b:'Check and log. BG keeps dropping after training. Eat if below 6.5.',on:true},
+  {id:'rh',grp:'evening',icon:'🦵',n:'Hip pain log',time:'20:30',desc:'Rate right hip/glute 0–10',t:'🦵 Hip check — 0 to 10',b:'How is the right hip tonight? Log it. Trend over weeks is everything.',on:true},
+  {id:'rbb',grp:'evening',icon:'🩸',n:'Pre-bed BG',time:'21:00',desc:'Final reading of the day',t:'🩸 Pre-bed BG',b:'Last reading. Below 6.5 after big training? Small slow-carb snack first.',on:true},
+  {id:'rsl',grp:'evening',icon:'😴',n:'Lights out — 21:15',time:'21:15',desc:'7–8hrs sleep = adaptation',t:'😴 Lights out, coach',b:'Sleep is where adaptation happens. Race winners are built in bed. Good night.',on:true},
+  {id:'rmot',grp:'morning',icon:'🔥',n:'Daily motivation',time:'05:00',desc:'Your daily coaching message',t:'',b:'',on:true,dynamic:true},
+];
+
+const TN={
+  morning:{t:'🌅 Rise and train!',b:'Hip mobility before you get up. 10 min. Right side first. Day '+dn()+' begins.'},
+  bg:{t:'🩸 Log BG now',b:'Quick check. BG tab → log it. Know your number.'},
+  session:{t:'🔥 SESSION TIME!',b:'Day '+dn()+' — GO. RASA podium built one session at a time.'},
+  gym:{t:'💪 Gym session',b:'Hip and glute session. Warm up first. Log hip pain before starting.'},
+  protein:{t:'🥛 Protein reminder',b:'135–150g today. Shake if behind.'},
+  hip:{t:'🦵 Hip check',b:'Rate right hip/glute 0–10 right now.'},
+  water:{t:'💧 Water check',b:'3–4L today. Dehydration kills recovery.'},
+  sleep:{t:'😴 Lights out',b:'Sleep is where adaptation happens. Good night.'},
+  motiv:{t:'',b:'',dynamic:true},
+};
+
+function dn(){const d=Math.floor((new Date()-TRAIN_START)/86400000)+1;return d>=1?d:'—';}
+function dtr(){return Math.max(0,Math.ceil((RACE_DATE-new Date())/86400000));}
+function phase(){
+  const n=new Date();
+  if(n<TRAIN_START)return{n:'Starting 8 Jul',c:'var(--tx3)'};
+  if(n<new Date('2026-10-01'))return{n:'Phase 1 · Base',c:'var(--t)'};
+  if(n<new Date('2027-01-01'))return{n:'Phase 2 · Build',c:'var(--b)'};
+  if(n<new Date('2027-03-16'))return{n:'Phase 3 · Peak',c:'var(--am)'};
+  if(n<new Date('2027-04-05'))return{n:'Phase 4 · Taper',c:'var(--co)'};
+  return{n:'RACE DAY 🏁',c:'#fff'};
+}
+function dateStr(d){return d.toLocaleDateString('en-ZA',{weekday:'long',day:'numeric',month:'long'});}
+function dsShort(d){return d.toLocaleDateString('en-ZA',{weekday:'short',day:'numeric',month:'short'});}
+function todayQuote(){
+  const idx=Math.floor((new Date()-TRAIN_START)/86400000)%QUOTES.length;
+  return QUOTES[Math.max(0,idx)];
+}
+
+// ── TODAY ─────────────────────────────────────────────────────────────
+function buildToday(){
+  const p=WP[new Date().getDay()];
+  const ph=phase();
+  const logs=S.get('logs')||[];
+  const tod=new Date().toISOString().slice(0,10);
+  const logged=logs.some(l=>l.date===tod);
+  const lastBG=S.get('lastBG')||'—';
+  const lp=S.get('lp');
+  const q=todayQuote();
+  const dayN=dn();
+  const cols={rest:'#5a6280',gym:'#378ADD',wahoo:'#1D9E75',tread:'#BA7517',ride:'#993C1D'};
+  const c=cols[p.type]||'var(--t)';
+
+  // Morning vs evening session time
+  const now=new Date();
+  const isWinter=now>=new Date('2026-07-08')&&now<new Date('2026-09-15');
+  const sessTime=isWinter?'17:30':'05:00';
+
+  let h=`
+    <div class="hero" style="background:linear-gradient(135deg,${c}44,${c}18);border:1px solid ${c}66;min-height:90px;">
+      <h1>${p.icon} ${p.n}</h1>
+      <p>${dateStr(new Date())} · <span style="color:${ph.c}">${ph.n}</span></p>
+      <div class="ghost" style="color:${c};opacity:.12;">${dayN}</div>
+    </div>
+
+    <div class="motiv" style="background:${c}12;">
+      <div class="mq">"${q.q}"</div>
+      <div class="ma">— ${q.a}</div>
+    </div>
+
+    <div class="sg">
+      <div class="stat"><div class="sl">Days to RASA</div><div class="sv" style="color:var(--t)">${dtr()}</div><div class="su">5 April 2027</div></div>
+      <div class="stat"><div class="sl">Training day</div><div class="sv" style="color:${c}">${dayN}</div><div class="su">of 271</div></div>
+      <div class="stat"><div class="sl">Last BG</div><div class="sv">${lastBG}</div><div class="su">mmol/L</div></div>
+      <div class="stat"><div class="sl">Hip pain</div><div class="sv">${lp&&lp.val!=null?lp.val+'/10':'—'}</div><div class="su">last logged</div></div>
+    </div>
+
+    <div class="al aa"><span>🩸</span><span><b>Before every session:</b> Check BG. Target 5.5–10 mmol/L. Log in 🩸 BG tab. Glucose tabs in pocket. Non-negotiable.</span></div>
+
+    <div style="font-size:10px;font-weight:800;color:var(--tx3);text-transform:uppercase;letter-spacing:.09em;margin-bottom:8px;">Today's session plan — tap each step</div>`;
+
+  // Add morning note if applicable
+  if(!isWinter){
+    h+=`<div class="al at"><span>🌅</span><span>Morning session day. Fasting BG check FIRST before training. If below 5.5 eat before riding — do not train fasted with low BG.</span></div>`;
+  }
+
+  p.steps.forEach((s,i)=>{
+    h+=`<div class="step">
+      <div class="sh" onclick="tog(${i})">
+        <div class="snum" style="background:${c}33;color:${c}">${i+1}</div>
+        <div class="stit">${s.t}</div>
+        <div class="sdur">${s.d}</div>
+      </div>
+      <div class="sb" id="s${i}"><div class="sdet">${s.det}</div></div>
+    </div>`;
+  });
+
+  h+=`<div style="margin-top:14px;">
+    ${logged
+      ?'<div class="al ag"><span>✅</span><span>Session logged today. Excellent — one step closer to that Top 3 finish.</span></div>'
+      :`<button class="btn bt" onclick="goLog()">📓 Log today's session</button>`}
+  </div>
+  <div class="card" style="margin-top:4px;">
+    <div class="ct">Right hip/glute pain — rate right now</div>
+    <div class="pr" id="tpb"></div>
+    <div id="tpa" style="font-size:12px;line-height:1.5;margin-top:5px;padding:8px;border-radius:var(--rs);display:none;"></div>
+  </div>
+  <div class="card">
+    <div class="ct">Today's nutrition checklist</div>
+    <div class="row"><div class="rk">Calories</div><div class="rv">2800–3400 kcal</div></div>
+    <div class="row"><div class="rk">Protein target</div><div class="rv" style="color:var(--t)">135–150g</div></div>
+    <div class="row"><div class="rk">Creatine 5g</div><div class="rv">With breakfast ✓</div></div>
+    <div class="row"><div class="rk">Saxagliptin 10mg</div><div class="rv">With breakfast ✓</div></div>
+    <div class="row"><div class="rk">Water</div><div class="rv">3–4L minimum</div></div>
+    <div class="row"><div class="rk">Pre-bed if BG below 6.5</div><div class="rv">Small slow-carb snack</div></div>
+  </div>`;
+
+  document.getElementById('tc').innerHTML=h;
+  buildPB('tpb',v=>{
+    const a=document.getElementById('tpa');
+    const msgs={0:'All clear ✓ Train as planned.',1:'Minimal. Train normally.',2:'Mild. Train + full hip mobility.',3:'Moderate. Reduce load. Physio if 3+ days.',4:'Caution. Rest + mobility only. Book physio this week.',5:'Stop training. Book physio ASAP.'};
+    const bg=v>=4?'#501313':v>=3?'#412402':'#04342C';
+    const tc=v>=4?'#F09595':v>=3?'#EF9F27':'#5DCAA5';
+    a.style.cssText=`background:${bg};color:${tc};display:block;padding:8px;border-radius:var(--rs);`;
+    a.textContent=msgs[Math.min(v,5)]||`Pain ${v}/10 — seek physio immediately.`;
+    S.set('lp',{val:v,date:new Date().toISOString()});
+  });
+}
+function tog(i){document.getElementById('s'+i).classList.toggle('open');}
+function goLog(){
+  const btns=document.querySelectorAll('.nb');
+  btns.forEach(b=>{if(b.textContent.includes('Log'))show('log',b);});
+}
+
+// ── WEEK ──────────────────────────────────────────────────────────────
+function buildWeek(){
+  const today=new Date();
+  const dow=today.getDay();
+  const mon=new Date(today);mon.setDate(today.getDate()-(dow===0?6:dow-1));
+  const days=['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+  const dowMap=[1,2,3,4,5,6,0];
+  const logs=S.get('logs')||[];
+  let strip='',detail=`<div class="card"><div class="ct">Week detail</div>`;
+  for(let i=0;i<7;i++){
+    const d=new Date(mon);d.setDate(mon.getDate()+i);
+    const ds=d.toISOString().slice(0,10);
+    const isT=ds===today.toISOString().slice(0,10);
+    const isDn=logs.some(l=>l.date===ds);
+    const pl=WP[dowMap[i]];
+    strip+=`<div class="wd${isT?' tdy':isDn?' dn':''}"><div class="wdn">${days[i]}</div><div class="wdi">${pl.icon}</div><div class="wdt">${pl.n.split(' ')[0]}</div></div>`;
+    detail+=`<div class="row"><div class="rk">${isT?`<b style="color:var(--t)">`:''}${days[i]} ${d.getDate()}${isT?'</b>':''}</div><div class="rv">${pl.icon} ${pl.n}${isDn?' ✅':isT?' ← Today':''}</div></div>`;
+  }
+  detail+='</div>';
+  const we=new Date(mon.getTime()+6*86400000);
+  document.getElementById('wkrange').textContent=`${dsShort(mon)} — ${dsShort(we)}`;
+  document.getElementById('wkstrip').innerHTML=strip;
+  document.getElementById('wkdetail').innerHTML=detail;
+}
+
+// ── PHASE VOLUME ──────────────────────────────────────────────────────
+function buildVol(){
+  const d=[{w:'W1',h:5.0,c:'#1D9E75'},{w:'W2',h:5.5,c:'#1D9E75'},{w:'W3',h:6.0,c:'#1D9E75'},{w:'W4',h:4.0,c:'#5a6080'},{w:'W5',h:6.5,c:'#378ADD'},{w:'W6',h:7.0,c:'#378ADD'},{w:'W7',h:7.5,c:'#378ADD'},{w:'W8',h:5.0,c:'#5a6080'},{w:'W9',h:8.0,c:'#BA7517'},{w:'W10',h:8.5,c:'#BA7517'},{w:'W11',h:9.0,c:'#BA7517'},{w:'W12',h:6.0,c:'#5a6080'}];
+  const notes=['8 Jul →','+10%','+10%','Deload','Rebuild','+8%','+7%','Deload','Rebuild','+6%','+6%','Deload'];
+  const el=document.getElementById('p1v');if(!el)return;
+  el.innerHTML=d.map((x,i)=>`<div style="display:grid;grid-template-columns:28px 44px 1fr 48px;gap:5px;align-items:center;padding:5px 0;border-bottom:1px solid var(--bdr)"><div style="font-size:10px;font-weight:700;color:var(--tx3)">${x.w}</div><div style="font-size:13px;font-weight:700;color:var(--tx)">${x.h}hr</div><div style="background:var(--bg3);border-radius:99px;height:5px;overflow:hidden"><div style="width:${(x.h/9)*100}%;height:100%;border-radius:99px;background:${x.c}"></div></div><div style="font-size:10px;color:var(--tx3);text-align:right">${notes[i]}</div></div>`).join('');
+}
+
+// ── BODY COMP ─────────────────────────────────────────────────────────
+let bcPainVal=null;
+function saveBC(){
+  const e={id:Date.now(),date:document.getElementById('bcdate').value,wt:document.getElementById('bcwt').value,pain:bcPainVal,notes:document.getElementById('bcnotes').value};
+  if(!e.date){alert('Fill in date.');return;}
+  const checks=S.get('bchecks')||[];checks.unshift(e);S.set('bchecks',checks);
+  document.getElementById('bcwt').value='';document.getElementById('bcnotes').value='';
+  document.querySelectorAll('#bcpain .pb').forEach(b=>b.classList.remove('sel'));bcPainVal=null;
+  renderBC();
+}
+function renderBC(){
+  const checks=S.get('bchecks')||[];
+  const c=document.getElementById('bclist');if(!c)return;
+  if(!checks.length){c.innerHTML='<div style="font-size:13px;color:var(--tx3);text-align:center;padding:20px;">No body checks logged yet. Start monthly check-ins.</div>';return;}
+  c.innerHTML=checks.slice(0,10).map(x=>`
+    <div class="le">
+      <div class="ld">${x.date}</div>
+      <div class="lm" style="font-size:16px;font-weight:800;color:var(--t)">${x.wt?x.wt+'kg':''}</div>
+      ${x.notes?`<div style="font-size:12px;color:var(--tx3);margin-top:3px;">${x.notes}</div>`:''}
+      <div class="ltg">${x.pain!=null?`<span class="lt" style="background:#04342C;color:#5DCAA5;">Hip ${x.pain}/10</span>`:''}</div>
+    </div>`).join('');
+}
+
+// ── PAIN BUTTONS ──────────────────────────────────────────────────────
+let lpv=null;
+function buildPB(cid,cb){
+  const c=document.getElementById(cid);if(!c)return;c.innerHTML='';
+  for(let i=0;i<=10;i++){
+    const b=document.createElement('button');b.className='pb';b.textContent=i===0?'0 ✓':i;
+    b.onclick=()=>{c.querySelectorAll('.pb').forEach(x=>x.classList.remove('sel'));b.classList.add('sel');cb(i);};
+    c.appendChild(b);
+  }
+}
+
+// ── BG ────────────────────────────────────────────────────────────────
+function bgz(){
+  const v=parseFloat(document.getElementById('bgv').value);
+  const d=document.getElementById('bgzd');
+  const base='text-align:center;padding:10px;border-radius:var(--rs);font-size:13px;font-weight:700;margin-bottom:12px;transition:all .2s;';
+  if(isNaN(v)){d.textContent='Enter reading above';d.style.cssText=base+'background:var(--bg3);color:var(--tx3);';return;}
+  if(v<4){d.textContent='⛔ STOP — 15g fast carbs immediately. Recheck 15 min.';d.style.cssText=base+'background:#501313;color:#F09595;';}
+  else if(v<5.5){d.textContent='⚠ Caution — eat 20–30g carbs before training.';d.style.cssText=base+'background:#412402;color:#EF9F27;';}
+  else if(v<8){d.textContent='✓ Green light — ideal training zone.';d.style.cssText=base+'background:#173404;color:#97C459;';}
+  else if(v<10){d.textContent='✓ Ideal pre-long-ride buffer. Good to go.';d.style.cssText=base+'background:#04342C;color:#5DCAA5;';}
+  else if(v<13){d.textContent='Monitor — Z2 will lower it. Recheck 30 min in.';d.style.cssText=base+'background:#412402;color:#EF9F27;';}
+  else{d.textContent='Rest day — above 13. Skip training today.';d.style.cssText=base+'background:#4A1B0C;color:#F0997B;';}
+}
+const BGX={fasting:'Fasting',pre:'Pre-session',bike:'On-bike',post:'Post-session','2hr':'2hr post',bed:'Pre-bed',random:'Random'};
+function saveBG(){
+  const v=parseFloat(document.getElementById('bgv').value);
+  if(isNaN(v)||v<1||v>30){alert('Enter a valid BG reading (1–30 mmol/L).');return;}
+  const e={id:Date.now(),val:v,ctx:document.getElementById('bgc').value,dt:document.getElementById('bgdt').value,note:document.getElementById('bgn').value};
+  const r=S.get('bgs')||[];r.unshift(e);S.set('bgs',r);S.set('lastBG',v);
+  document.getElementById('bgv').value='';document.getElementById('bgn').value='';
+  const base='text-align:center;padding:10px;border-radius:var(--rs);font-size:13px;font-weight:700;margin-bottom:12px;';
+  document.getElementById('bgzd').textContent='✓ Reading saved';
+  document.getElementById('bgzd').style.cssText=base+'background:#173404;color:#97C459;';
+  setDT();renderBGL();buildToday();
+  if(v<4)fireN('🚨 Low BG!','Below 4.0 — glucose tabs immediately. Do not train.','bg-lo','',500);
+  else if(v>13)fireN('⚠ High BG','Above 13. Rest today. Skip session.','bg-hi','',500);
+}
+function renderBGL(){
+  const r=S.get('bgs')||[];
+  const c=document.getElementById('bgl');
+  if(!r.length){c.innerHTML='<div style="font-size:13px;color:var(--tx3);text-align:center;padding:20px;">No readings yet. Log fasting BG every morning.</div>';return;}
+  c.innerHTML=r.slice(0,15).map(x=>{
+    let bg='#173404',tc='#97C459';
+    if(x.val<4){bg='#501313';tc='#F09595';}else if(x.val<5.5){bg='#412402';tc='#EF9F27';}else if(x.val>=13){bg='#4A1B0C';tc='#F0997B';}else if(x.val>=10){bg='#412402';tc='#EF9F27';}else if(x.val>=8){bg='#04342C';tc='#5DCAA5';}
+    return `<div class="le" style="display:flex;gap:10px;align-items:center;">
+      <div style="background:${bg};color:${tc};padding:7px 10px;border-radius:var(--rs);font-size:20px;font-weight:900;flex-shrink:0;min-width:52px;text-align:center;">${x.val}</div>
+      <div><div style="font-size:11px;color:var(--tx3);font-weight:600;">${x.dt?x.dt.replace('T',' '):''} · ${BGX[x.ctx]||x.ctx}</div>${x.note?`<div style="font-size:12px;color:var(--tx2);margin-top:2px;">${x.note}</div>`:''}</div>
+    </div>`;
+  }).join('');
+}
+
+// ── SESSION LOG ───────────────────────────────────────────────────────
+const TL={wahoo:'Wahoo Z2',z2:'Z2 Outdoor',long:'Long Ride','gym-a':'Gym A','gym-b':'Gym B',tread:'Treadmill',mob:'Mobility',rest:'Rest'};
+const TT={wahoo:'lr',z2:'lr',long:'lr','gym-a':'lg2','gym-b':'lg2',tread:'lx',mob:'lx',rest:'lx'};
+function saveLog(){
+  const e={id:Date.now(),date:document.getElementById('ldate').value,type:document.getElementById('ltype').value,dur:document.getElementById('ldur').value,hr:document.getElementById('lhr').value,dist:document.getElementById('ldist').value,pain:lpv,notes:document.getElementById('lnotes').value};
+  if(!e.date||!e.type){alert('Fill in date and session type.');return;}
+  const logs=S.get('logs')||[];logs.unshift(e);S.set('logs',logs);
+  ['ldur','lhr','ldist','lnotes'].forEach(id=>document.getElementById(id).value='');
+  document.querySelectorAll('#lpb .pb').forEach(b=>b.classList.remove('sel'));lpv=null;
+  renderLL();buildToday();buildWeek();
+  fireN('📓 Session logged!',`${TL[e.type]||e.type} saved. Day ${dn()} done. Top 3 at RASA — one session at a time.`,'log-ok','',800);
+}
+function renderLL(){
+  const logs=S.get('logs')||[];
+  const c=document.getElementById('ll');
+  if(!logs.length){c.innerHTML='<div style="font-size:13px;color:var(--tx3);text-align:center;padding:20px;">No sessions yet. Log after every session.</div>';return;}
+  c.innerHTML=logs.slice(0,30).map(l=>`
+    <div class="le">
+      <div class="ld">${l.date}</div>
+      <div class="lm">${TL[l.type]||l.type}${l.dur?' · '+l.dur+' min':''}${l.dist&&parseFloat(l.dist)>0?' · '+l.dist+'km':''}${l.hr?' · avg '+l.hr+'bpm':''}</div>
+      ${l.notes?`<div style="font-size:12px;color:var(--tx3);margin-top:3px;">${l.notes}</div>`:''}
+      <div class="ltg">
+        <span class="lt ${TT[l.type]||'lx'}">${TL[l.type]||l.type}</span>
+        ${l.pain!=null?`<span class="lt" style="background:#04342C;color:#5DCAA5;">Hip ${l.pain}/10</span>`:''}
+      </div>
+    </div>`).join('');
+}
+
+// ── PHASE ─────────────────────────────────────────────────────────────
+function showPh(id,el){
+  ['p1','p2','p3','p4'].forEach(p=>document.getElementById(p).style.display=p===id?'':'none');
+  const cols={p1:'background:#04342C;color:#5DCAA5;border-color:var(--t);',p2:'background:#042C53;color:#85B7EB;border-color:var(--b);',p3:'background:#412402;color:#EF9F27;border-color:var(--am);',p4:'background:#4A1B0C;color:#F0997B;border-color:var(--co);'};
+  document.querySelectorAll('.pp').forEach(p=>p.style.cssText='');
+  el.style.cssText=cols[id];buildVol();
+}
+
+// ── SUBTABS ───────────────────────────────────────────────────────────
+function showSt(screen,id,btn){
+  const pre=screen+'-';
+  document.querySelectorAll('[id^="'+pre+'"]').forEach(p=>p.classList.remove('active'));
+  document.getElementById(pre+id).classList.add('active');
+  btn.closest('.stabs').querySelectorAll('.stb').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+// ── NAV ──────────────────────────────────────────────────────────────
+function show(id,btn){
+  document.querySelectorAll('.sc').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.nb').forEach(b=>b.classList.remove('active'));
+  document.getElementById('sc-'+id).classList.add('active');
+  if(btn)btn.classList.add('active');
+  if(id==='log'){renderLL();setDate();}
+  if(id==='bg'){renderBGL();setDT();}
+  if(id==='week')buildWeek();
+  if(id==='alerts')buildAlerts();
+  if(id==='plan')buildVol();
+  if(id==='body'){renderBC();document.getElementById('bcdate').value=new Date().toISOString().slice(0,10);}
+  if(id==='race'){const el=document.getElementById('rcd');if(el)el.textContent=dtr();}
+}
+
+// ── NOTIFICATIONS ─────────────────────────────────────────────────────
+let swReg=null;
+async function reqN(){
+  if(!('Notification' in window)){upNS('no','Not supported on this browser');return;}
+  const p=await Notification.requestPermission();
+  if(p==='granted'){
+    upNS('ok','✓ Notifications enabled!');
+    document.getElementById('nBtn').style.display='none';
+    schedAll();
+    fireN('🎉 RASA 2027 coaching active!','Daily reminders live. Top 3 in the 50s. Build it one session at a time.','welcome','',2000);
+  } else {
+    upNS('no','Blocked — Chrome Settings → Site Settings → Notifications to allow.');
+  }
+}
+function upNS(s,m){const el=document.getElementById('nst');el.className='ns '+(s==='ok'?'nok':s==='no'?'nno':'nwt');el.textContent=m;}
+async function getSW(){if(swReg)return swReg;if('serviceWorker' in navigator){try{swReg=await navigator.serviceWorker.ready;}catch(e){}}return swReg;}
+async function fireN(title,body,tag,action,delay){
+  delay=delay||0;
+  const sw=await getSW();
+  if(sw&&sw.active&&Notification.permission==='granted'){sw.active.postMessage({type:'SCHEDULE_NOTIFICATION',title,body,tag,action,delay});}
+  else if(Notification.permission==='granted'){setTimeout(()=>new Notification(title,{body,icon:'./icons/icon-192.png',tag,vibrate:[200,100,200]}),delay);}
+}
+function msU(t){const[h,m]=t.split(':').map(Number);const now=new Date(),tgt=new Date();tgt.setHours(h,m,0,0);if(tgt<=now)tgt.setDate(tgt.getDate()+1);return tgt-now;}
+function schedAll(){
+  const prefs=S.get('rPrefs')||{};
+  const q=todayQuote();
+  REMINDERS.forEach(r=>{
+    const on=prefs[r.id]!==undefined?prefs[r.id]:r.on;
+    if(on){
+      let title=r.t,body=r.b;
+      if(r.dynamic){title='🔥 '+q.q.substring(0,40)+'...';body='"'+q.q+'" — '+q.a;}
+      fireN(title,body,r.id,'',msU(r.time));
+    }
+  });
+  setTimeout(schedAll,msU('00:01'));
+}
+function testN(type){
+  if(Notification.permission!=='granted'){alert('Enable notifications first.');return;}
+  const q=todayQuote();
+  const m=TN[type];
+  if(!m)return;
+  let t=m.t,b=m.b;
+  if(m.dynamic){t='🔥 '+q.q.substring(0,50);b='"'+q.q+'" — RASA 2027 Coach';}
+  fireN(t,b,'test-'+type,'',1500);
+}
+function buildAlerts(){
+  const prefs=S.get('rPrefs')||{};
+  const grps={morning:'grp-morning',training:'grp-training',bg:'grp-bg',evening:'grp-evening',safety:'grp-safety'};
+  Object.values(grps).forEach(id=>{const el=document.getElementById(id);if(el)el.innerHTML='';});
+  REMINDERS.forEach(r=>{
+    const on=prefs[r.id]!==undefined?prefs[r.id]:r.on;
+    const el=document.createElement('div');el.className='ni';
+    el.innerHTML=`<div class="nii"><div class="nin">${r.icon} ${r.n}</div><div class="nit">${r.time}</div><div class="nid">${r.desc}</div></div><label class="tog"><input type="checkbox" ${on?'checked':''} onchange="togR('${r.id}',this.checked)"/><span class="tsl"></span></label>`;
+    const t=document.getElementById(grps[r.grp]);if(t)t.appendChild(el);
+  });
+  if(Notification.permission==='granted'){upNS('ok','✓ Notifications enabled');document.getElementById('nBtn').style.display='none';}
+  else if(Notification.permission==='denied'){upNS('no','Blocked — enable in Chrome settings');}
+}
+function togR(id,on){
+  const prefs=S.get('rPrefs')||{};prefs[id]=on;S.set('rPrefs',prefs);
+  if(Notification.permission==='granted'&&on){const r=REMINDERS.find(x=>x.id===id);if(r)fireN(r.t,r.b,r.id,'',msU(r.time));}
+}
+
+// ── HELPERS ───────────────────────────────────────────────────────────
+function setDate(){const el=document.getElementById('ldate');if(el)el.value=new Date().toISOString().slice(0,10);}
+function setDT(){const el=document.getElementById('bgdt');if(!el)return;const n=new Date();el.value=new Date(n-n.getTimezoneOffset()*60000).toISOString().slice(0,16);}
+
+// ── INIT ──────────────────────────────────────────────────────────────
+if('serviceWorker' in navigator){
+  navigator.serviceWorker.register('./sw.js').then(reg=>{swReg=reg;if(Notification.permission==='granted')schedAll();});
+}
+buildPB('lpb',v=>lpv=v);
+buildPB('bcpain',v=>bcPainVal=v);
+setDate();setDT();
+buildToday();buildWeek();buildVol();
+setInterval(buildToday,60000);
+</script>
+</body>
+</html>
